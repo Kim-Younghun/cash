@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,50 @@ import javax.servlet.http.HttpServletRequest;
 import cash.vo.*;
 
 public class CashbookDao {
+	// 반환값 : cashbook_no 키값
+	public int insertCashbbok(Cashbook cashbook) {
+		int cashbookNo = 0;
+		int row = 0;
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null; // 입력후 생성된 키값 반환
+		String sql = "INSERT INTO cashbook(member_id, category, cashbook_date, price, memo, createdate, updatedate) "
+				+ " VALUES(?,?,?,?,?,NOW(),NOW())";
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, cashbook.getMemberId() );
+			stmt.setString(2, cashbook.getCategory() );
+			stmt.setString(3, cashbook.getCashbookDate() );
+			stmt.setInt(4, cashbook.getPrice() );
+			stmt.setString(5, cashbook.getMemo());
+			// 입력 여부 파악
+			row = stmt.executeUpdate();
+			// 자동 생성된 키(auto-generated key) 값을 가져오기 위해 사용하는 메소드
+			rs = stmt.getGeneratedKeys();
+			System.out.println(stmt);
+			
+			if(rs.next()) {
+				cashbookNo = rs.getInt(1);
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			
+		}
+		
+		return cashbookNo;
+	}
+	
 	// cashbook MONTH별 조회 list
 	public List<Cashbook> selectCashbookListByMonth(String memberId, int targetYear, int targetMonth) {
 		

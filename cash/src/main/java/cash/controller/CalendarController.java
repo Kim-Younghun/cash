@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cash.model.CashbookDao;
+import cash.model.HashtagDao;
 import cash.vo.Cashbook;
 
 @WebServlet("/CalendarController")
@@ -127,6 +129,12 @@ public class CalendarController extends HttpServlet {
 		// 모델 호출 (DAO 타겟 일의 모든 데이터)
 		List<HashMap<String, Object>> dayList = new CashbookDao().selectCashbookListByDay(memberId, targetYear, strM, strD);
 		
+		HashtagDao hashtagdao = new HashtagDao();
+		
+		
+		// 모델 호출 (해시태그별 카운트 데이터)
+		List<Map<String, Object>> htList = new HashtagDao().selectWordCountByMonth(memberId, targetYear, targetMonth+1);
+		
 		// 뷰에 값넘기기 (request 속성)
 		request.setAttribute("targetDay", targetDay);
 		request.setAttribute("targetYear", targetYear);
@@ -145,6 +153,11 @@ public class CalendarController extends HttpServlet {
 		
 		System.out.println("dayList :" + dayList);
 		
+		// 해시태그 순위내역 넣기
+		request.setAttribute("htList", htList);
+		
+		System.out.println("htList :" + htList);
+		
 		if(request.getAttribute("targetDay") == null || targetDay == 0) {
 		// 달력을 출력하는 뷰
 		request.getRequestDispatcher("/WEB-INF/view/calendar.jsp").forward(request, response);
@@ -153,16 +166,10 @@ public class CalendarController extends HttpServlet {
 		
 		if(request.getAttribute("targetDay") != null || targetDay != 0) {
 			// 일별 내역을 출력하는 뷰
-			request.getRequestDispatcher("/WEB-INF/view/calendarListByDate.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/view/cashbook.jsp").forward(request, response);
 			return;
 		}
 		
 	}
 	
-	
-	
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
-
 }

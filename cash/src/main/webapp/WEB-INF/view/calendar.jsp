@@ -44,6 +44,16 @@
 	<a href="${pageContext.request.contextPath}/CalendarController?targetYear=${targetYear}&targetMonth=${targetMonth-1}">이전달</a>
 	<a href="${pageContext.request.contextPath}/CalendarController?targetYear=${targetYear}&targetMonth=${targetMonth+1}">다음달</a>
 	
+	<!-- 해시태그 내역 출력 -->
+	<div>
+		<h2>이달의 해시태그</h2>
+		<div>
+			<c:forEach var="m" items="${htList}">
+				<a href="">${m.word}(${m.cnt})</a> <!-- 전체 목록중에서 해당 단어가 출력된다. -->
+			</c:forEach>
+		</div>
+	</div>
+	
 	
 	<table border="1">
 		<tr>
@@ -82,7 +92,7 @@
 					</td>
 				</c:if>
 				<!-- if의 반대 else 조건 -->
-				<c:if test="${ !(d > 0 || d <= lastDate)}">
+				<c:if test="${ !(d > 0 && d <= lastDate)}">
 					<td>&nbsp;</td>
 				</c:if>
 			</c:forEach>
