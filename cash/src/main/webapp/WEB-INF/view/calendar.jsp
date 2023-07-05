@@ -49,7 +49,7 @@
 		<h2>이달의 해시태그</h2>
 		<div>
 			<c:forEach var="m" items="${htList}">
-				<a href="">${m.word}(${m.cnt})</a> <!-- 전체 목록중에서 해당 단어가 출력된다. -->
+				<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${m.word}">${m.word}(${m.cnt})</a> <!-- 본인 태그의 수입/지출 내역 출력 - 전체 목록중에서 해당 단어가 출력된다. -->
 			</c:forEach>
 		</div>
 	</div>

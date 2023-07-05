@@ -13,7 +13,7 @@ import cash.model.MemberDao;
 import cash.vo.Member;
 
 @WebServlet("/logout")
-public class LogoutController extends HttpServlet {
+public class logoutController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// session 인증 검사 코드
 		System.out.println("로그아웃 성공");

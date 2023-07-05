@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import cash.vo.*;
 
 public class CashbookDao {
@@ -58,6 +56,200 @@ public class CashbookDao {
 		return cashbookNo;
 	}
 	
+	// cashbook hashtag별 조회 list
+	public List<Cashbook> selectCashbookListByTag(String memberId, String word, String searchWord, String beginYear, String endYear, String col, String ascDesc, int beginRow, int rowPerPage) {
+		
+		List<Cashbook> tagList = new ArrayList<Cashbook>();
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT cashbook_no cashbookNo , category, cashbook_date cashbookDate, price, memo, createdate, updatedate "
+				+ " FROM cashbook c INNER JOIN hashtag h"
+				+ " ON c.cashbook_no = h.cashbook_no";
+		
+				/*
+				+ " WHERE c.member_id = ? AND h.word = ?"
+				+ " ORDER BY cashbook_date ASC "
+				+ " LIMIT ?, ?";
+				*/
+		
+		// 조건을 추가할 where 절
+		String whereClause = "";
+		
+		// 처음 조건식이므로 id값과 해시태그 단어를 입력받는다.
+	  	if(memberId != null && !memberId.equals("")
+	  			|| word != null && !word.equals("")) {
+	  		whereClause += " WHERE c.member_id = ? AND h.word = ?";
+	  	}
+	  	
+	  	// 검색단어가 있을 경우 WHERE절에 memo like ?을 추가한다.
+	 	if(searchWord != null && !searchWord.equals("")) {
+	 		if(whereClause.equals("")) {
+	 			whereClause += " WHERE ";
+	 		} else {
+	 		whereClause += " AND "; 
+	 		}
+			whereClause += " memo like ?";
+		}
+		
+	 	// 선택년도가 있을 경우 WHERE절에 YEAR(cashbook_date) between ? AND ?을 추가한다.
+	 	if(beginYear != null && !beginYear.equals("") && endYear != null && !endYear.equals("")) {
+	 		if(whereClause.equals("")) {
+	 			whereClause += " WHERE ";
+	 		} else {
+	 	 		whereClause += " AND "; 
+	 	 	}
+	 		whereClause += "YEAR(cashbook_date) between ? AND ?";
+	 	}
+	 	
+	 	// sql문을 완성
+	  	sql += whereClause +  " ORDER BY " + col + " " + ascDesc +  " LIMIT ?,? ";
+	 	
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			stmt = conn.prepareStatement(sql);
+			
+			// ?에 들어갈 인덱스변수를 선언한다.
+			int parameterIndex = 1;
+			
+			if(memberId != null && !memberId.equals("")
+		  			|| word != null && !word.equals("")) {
+				stmt.setString(parameterIndex++, memberId);
+				stmt.setString(parameterIndex++, word);
+		  	}
+			
+			if(searchWord != null && !searchWord.equals("")) {
+				stmt.setString(parameterIndex++, "%"+searchWord+"%");
+			}
+			
+			if(beginYear != null && !beginYear.equals("") && endYear != null && !endYear.equals("")) {
+				stmt.setString(parameterIndex++, beginYear);
+				stmt.setString(parameterIndex++, endYear);
+			}
+			
+			stmt.setInt(parameterIndex, beginRow);
+			stmt.setInt(parameterIndex + 1, rowPerPage);
+			
+			rs = stmt.executeQuery();
+			System.out.println(stmt);
+			
+			while(rs.next()) {
+				Cashbook c = new Cashbook();
+				c.setCashbookNo(rs.getInt("cashbookNo"));
+				c.setCategory(rs.getString("category"));
+				c.setCashbookDate(rs.getString("cashbookDate"));
+				c.setPrice(rs.getInt("price"));
+				c.setMemo(rs.getString("memo"));
+				c.setCreatedate(rs.getString("createdate"));
+				c.setUpdatedate(rs.getString("updatedate"));
+				tagList.add(c);
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			
+		}
+		
+		return tagList;
+	}
+	
+	// cashbook hashtag별 조회 list count
+	public int selectCashbookListCnt(String memberId, String word, String searchWord, String beginYear, String endYear) {
+		
+		int totalRow = 0;
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) FROM cashbook c INNER JOIN hashtag h"
+				+ " ON c.cashbook_no = h.cashbook_no";
+		
+		// 조건을 추가할 where 절
+		String whereClause = "";
+		
+		// 처음 조건식이므로 id값과 해시태그 단어를 입력받는다.
+	  	if(memberId != null && !memberId.equals("")
+	  			|| word != null && !word.equals("")) {
+	  		whereClause += " WHERE c.member_id = ? AND h.word = ?";
+	  	}
+	  	
+	  	// 검색단어가 있을 경우 WHERE절에 memo like ?을 추가한다.
+	 	if(searchWord != null && !searchWord.equals("")) {
+	 		if(whereClause.equals("")) {
+	 			whereClause += " WHERE ";
+	 		} else {
+	 		whereClause += " AND "; 
+	 		}
+			whereClause += " memo like ?";
+		}
+		
+	 	// 선택년도가 있을 경우 WHERE절에 YEAR(cashbook_date) between ? AND ?을 추가한다.
+	 	if(beginYear != null && !beginYear.equals("") && endYear != null && !endYear.equals("")) {
+	 		if(whereClause.equals("")) {
+	 			whereClause += " WHERE ";
+	 		} else {
+	 	 		whereClause += " AND "; 
+	 	 	}
+	 		whereClause += "YEAR(cashbook_date) between ? AND ?";
+	 	}
+	 	
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			stmt = conn.prepareStatement(sql);
+			
+			// ?에 들어갈 인덱스변수를 선언한다.
+			int parameterIndex = 1;
+			
+			if(memberId != null && !memberId.equals("")
+		  			|| word != null && !word.equals("")) {
+				stmt.setString(parameterIndex++, memberId);
+				stmt.setString(parameterIndex++, word);
+		  	}
+			
+			if(searchWord != null && !searchWord.equals("")) {
+				stmt.setString(parameterIndex++, "%"+searchWord+"%");
+			}
+			
+			if(beginYear != null && !beginYear.equals("") && endYear != null && !endYear.equals("")) {
+				stmt.setString(parameterIndex++, beginYear);
+				stmt.setString(parameterIndex++, endYear);
+			}
+			
+			rs = stmt.executeQuery();
+			System.out.println(stmt);
+			
+			if(rs.next()) {
+				totalRow = rs.getInt(1);
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			
+		}
+		
+		return totalRow;
+		
+	}
+	
+	
 	// cashbook MONTH별 조회 list
 	public List<Cashbook> selectCashbookListByMonth(String memberId, int targetYear, int targetMonth) {
 		
@@ -68,7 +260,8 @@ public class CashbookDao {
 		ResultSet rs = null;
 		String sql = "SELECT cashbook_no cashbookNo , category, cashbook_date cashbookDate, price, memo, createdate, updatedate "
 				+ " FROM cashbook"
-				+ " WHERE member_id = ? AND YEAR(cashbook_date) = ? AND MONTH(cashbook_date) = ? ORDER BY cashbook_date ASC";
+				+ " WHERE member_id = ? AND YEAR(cashbook_date) = ? AND MONTH(cashbook_date) = ?"
+				+ " ORDER BY cashbook_date ASC";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
@@ -116,7 +309,8 @@ public class CashbookDao {
 		ResultSet rs = null;
 		String sql = "SELECT cashbook_no cashbookNo , member_id memberId, category, cashbook_date cashbookDate, price, memo, createdate, updatedate "
 				+ " FROM cashbook"
-				+ " WHERE member_id = ? AND cashbook_date = ? ORDER BY createdate ASC";
+				+ " WHERE member_id = ? AND cashbook_date = ?"
+				+ " ORDER BY createdate ASC";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
