@@ -16,7 +16,7 @@ import cash.vo.Cashbook;
 import cash.vo.Member;
 
 @WebServlet("/cashbook")
-public class CashbookController extends HttpServlet {
+public class ashbookController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// session 인증 검사 코드

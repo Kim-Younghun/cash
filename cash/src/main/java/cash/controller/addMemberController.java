@@ -12,7 +12,7 @@ import cash.model.MemberDao;
 import cash.vo.Member;
 
 @WebServlet("/addMember")
-public class AddMemberController extends HttpServlet {
+public class addMemberController extends HttpServlet {
 
 	// addMember.jsp 회원가입폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

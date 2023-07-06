@@ -15,7 +15,7 @@ import cash.vo.Cashbook;
 import cash.vo.Hashtag;
 
 @WebServlet("/addCashbook")
-public class AddCashbookController extends HttpServlet {
+public class addCashbookController extends HttpServlet {
 
 	// 입력폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

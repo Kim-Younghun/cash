@@ -16,8 +16,8 @@ import cash.model.CashbookDao;
 import cash.model.HashtagDao;
 import cash.vo.Cashbook;
 
-@WebServlet("/CalendarController")
-public class CalendarController extends HttpServlet {
+@WebServlet("/calendarController")
+public class calendarController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
