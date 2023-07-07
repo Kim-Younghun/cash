@@ -50,5 +50,14 @@ function goBack() {
 	</c:forEach>	
 </table>
 </c:if>
+	<div>
+		현재 접속자 : ${currentCounter}  <!-- application.getAttribute("currentCounter")를 EL로 표현 -->
+	</div>
+	<div>
+		오늘 접속자 : ${counter}                  
+	</div>
+	<div>
+		누적 접속자 : ${totalCounter}                  
+	</div>
 </body>
 </html>

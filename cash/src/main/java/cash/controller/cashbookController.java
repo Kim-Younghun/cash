@@ -14,9 +14,13 @@ import cash.model.CashbookDao;
 import cash.model.MemberDao;
 import cash.vo.Cashbook;
 import cash.vo.Member;
+import cash.service.CounterService;
 
 @WebServlet("/cashbook")
-public class ashbookController extends HttpServlet {
+public class cashbookController extends HttpServlet {
+	
+	private CounterService counterService = null;
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// session 인증 검사 코드
@@ -25,6 +29,16 @@ public class ashbookController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
+		
+		// 카운터를 request 객체에 넣기
+		counterService = new CounterService();
+		
+		int counter = counterService.getCounter();
+		int totalCounter = counterService.getCounterAll();
+		
+		request.setAttribute("counter", counter);
+		request.setAttribute("totalCounter", totalCounter);
+		
 		
 		/*
 		//request 전달값
