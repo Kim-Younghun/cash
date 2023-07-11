@@ -16,12 +16,14 @@ import cash.vo.Member;
 public class loginController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		// session 인증 검사 코드
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") != null) { // 로그인 후
 			response.sendRedirect(request.getContextPath()+"/cashbook");
 			return;
 		}
+		
 		request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response); // 로그인 get 요청시 해당 url로 이동
 	}
 	@Override

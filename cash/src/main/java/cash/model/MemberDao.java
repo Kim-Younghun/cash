@@ -52,7 +52,8 @@ public class MemberDao {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT member_id memberId FROM member WHERE member_id = ? AND member_pw = PASSWORD(?)";
+		String sql = "SELECT member_id memberId, member_pw memberPw, createdate, updatedate"
+				+ " FROM member WHERE member_id = ? AND member_pw = PASSWORD(?)";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
@@ -63,6 +64,9 @@ public class MemberDao {
 			if(rs.next()) {
 				returnMember = new Member();
 				returnMember.setMemberId(rs.getString("memberId"));
+				returnMember.setMemberPw(rs.getString("memberPw"));
+				returnMember.setCreatedate(rs.getString("createdate"));
+				returnMember.setUpdatedate(rs.getString("updatedate"));
 			}
 		} catch (Exception e1) {
 			e1.printStackTrace();

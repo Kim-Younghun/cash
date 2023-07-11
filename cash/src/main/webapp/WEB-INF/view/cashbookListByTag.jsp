@@ -36,24 +36,33 @@
 		</th>
 		<th>
 			가계내역
-			<a href="${pageContext.request.contextPath}/cashbookListController?col=${tag.cashbookNo}&ascDesc=ASC&reqString=${reqString}">[ASC]</a>
-			<a href="${pageContext.request.contextPath}/cashbookListController?col=${tag.cashbookNo}&ascDesc=DESC&reqString=${reqString}">[DESC]</a>
+			<a href="${pageContext.request.contextPath}/cashbookListController?col=${tag.category}&ascDesc=ASC&reqString=${reqString}">[ASC]</a>
+			<a href="${pageContext.request.contextPath}/cashbookListController?col=${tag.category}&ascDesc=DESC&reqString=${reqString}">[DESC]</a>
 		</th>
 		<th>
 			일자
-			
+			<a href="${pageContext.request.contextPath}/cashbookListController?col=${tag.cashbookDate}&ascDesc=ASC&reqString=${reqString}">[ASC]</a>
+			<a href="${pageContext.request.contextPath}/cashbookListController?col=${tag.cashbookDate}&ascDesc=DESC&reqString=${reqString}">[DESC]</a>
 		</th>
 		<th>
 			금액
-			
+			<a href="${pageContext.request.contextPath}/cashbookListController?col=${tag.price}&ascDesc=ASC&reqString=${reqString}">[ASC]</a>
+			<a href="${pageContext.request.contextPath}/cashbookListController?col=${tag.price}&ascDesc=DESC&reqString=${reqString}">[DESC]</a>
 		</th>
 		<th>
 			메모
-			
+			<a href="${pageContext.request.contextPath}/cashbookListController?col=${tag.memo}&ascDesc=ASC&reqString=${reqString}">[ASC]</a>
+			<a href="${pageContext.request.contextPath}/cashbookListController?col=${tag.memo}&ascDesc=DESC&reqString=${reqString}">[DESC]</a>
+		</th>
+		<th>
+			작성일
+			<a href="${pageContext.request.contextPath}/cashbookListController?col=${tag.createdate}&ascDesc=ASC&reqString=${reqString}">[ASC]</a>
+			<a href="${pageContext.request.contextPath}/cashbookListController?col=${tag.createdate}&ascDesc=DESC&reqString=${reqString}">[DESC]</a>
 		</th>
 		<th>
 			수정일
-			
+			<a href="${pageContext.request.contextPath}/cashbookListController?col=${tag.updatedate}&ascDesc=ASC&reqString=${reqString}">[ASC]</a>
+			<a href="${pageContext.request.contextPath}/cashbookListController?col=${tag.updatedate}&ascDesc=DESC&reqString=${reqString}">[DESC]</a>
 		</th>
 	</tr>
 	<c:forEach items="${list}" var="tag">

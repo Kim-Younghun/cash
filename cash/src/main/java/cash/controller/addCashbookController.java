@@ -19,21 +19,20 @@ public class addCashbookController extends HttpServlet {
 
 	// 입력폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		// session 유효성 검사
-		/*
 		HttpSession session = request.getSession();
-		if(session.getAttribute("loginMember") == null) { // 로그인 후
+		if(session.getAttribute("loginMember") == null) { // 로그인 전인 사람은 일정 추가 불가
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
-		*/
+		
 		
 		//디버깅
 		System.out.println(Integer.parseInt(request.getParameter("targetYear")));
 		System.out.println(Integer.parseInt(request.getParameter("targetMonth")));
 		System.out.println(Integer.parseInt(request.getParameter("targetDay")));
-		
-		
 		
 		//request 전달값
 		int targetYear = Integer.parseInt(request.getParameter("targetYear"));
@@ -54,9 +53,16 @@ public class addCashbookController extends HttpServlet {
 	// 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 인코딩
-		request.setCharacterEncoding("utf-8");
-		String memberId = "user";
+		
+		// session 유효성 검사
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginMember") == null) { // 로그인 전인 사람은 일정 추가 불가
+			response.sendRedirect(request.getContextPath()+"/login");
+			return;
+		}
+		
+		
+		String memberId = (String)session.getAttribute("loginMember");
 		
 		// 입력폼으로부터 데이터 받음
 		String category = request.getParameter("category");

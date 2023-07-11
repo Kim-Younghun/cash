@@ -16,7 +16,7 @@ function goBack() {
 <h1>cashbook.jsp</h1>
 		<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
 		<a href="${pageContext.request.contextPath}/memberOne">회원정보</a>
-		<a href="${pageContext.request.contextPath}/CalendarController">가계부</a>
+		<a href="${pageContext.request.contextPath}/calendar">가계부</a>
 		<!-- 입력받은 년/월/일이 있는경우만 보여줌-->
 		<c:if test="${targetYear != null && targetMonth != null && targetDay != null }">
 		<a href="${pageContext.request.contextPath}/addCashbook?targetYear=${targetYear}&targetMonth=${targetMonth}&targetDay=${targetDay}">내역추가</a>

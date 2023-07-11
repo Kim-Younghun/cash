@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import cash.model.CashbookDao;
 import cash.vo.Cashbook;
@@ -17,17 +18,17 @@ import cash.vo.Cashbook;
 public class cashbookListController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// session 구현
-		/*
+		
+		// session 유효성 구현
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") == null) { //로그인전
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
-		*/
+		
+		String memberId = (String)session.getAttribute("loginMember");
 		
 		// cashbookListByTag.jsp로부터 정렬 반환값 저장
-		String memberId = "user";
 		
 		String word = request.getParameter("word");
 		if (word == null) {
@@ -106,12 +107,6 @@ public class cashbookListController extends HttpServlet {
 		
 		// 뷰에 값넘기기 (request 속성)
 		request.setAttribute("reqString", reqString);
-		request.setAttribute("targetYear", targetYear);
-		request.setAttribute("targetMonth", targetMonth);
-		request.setAttribute("lastDate", lastDate);
-		request.setAttribute("totalCell", totalCell);
-		request.setAttribute("beginBlank", beginBlank);
-		request.setAttribute("endBlank", endBlank);
 		
 		request.getRequestDispatcher("/WEB-INF/view/cashbookListByTag.jsp").forward(request, response);
 	}

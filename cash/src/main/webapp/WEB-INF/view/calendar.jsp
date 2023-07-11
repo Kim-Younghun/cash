@@ -41,8 +41,8 @@
 	
 	<h1>${targetYear}년 ${targetMonth+1}월</h1>
 	<!-- $ {pageContext.request.contextPath}/CalendarController로 view를 직접호출이 아닌 컨트롤러를 통해 접근한다. -->
-	<a href="${pageContext.request.contextPath}/CalendarController?targetYear=${targetYear}&targetMonth=${targetMonth-1}">이전달</a>
-	<a href="${pageContext.request.contextPath}/CalendarController?targetYear=${targetYear}&targetMonth=${targetMonth+1}">다음달</a>
+	<a href="${pageContext.request.contextPath}/Calendar?targetYear=${targetYear}&targetMonth=${targetMonth-1}">이전달</a>
+	<a href="${pageContext.request.contextPath}/Calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}">다음달</a>
 	
 	<!-- 해시태그 내역 출력 -->
 	<div>

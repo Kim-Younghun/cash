@@ -11,25 +11,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import cash.model.CashbookDao;
 import cash.model.HashtagDao;
 import cash.vo.Cashbook;
+import cash.vo.Member;
 
-@WebServlet("/calendarController")
+@WebServlet("/calendar")
 public class calendarController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// session 인증 검사
 		/*
+		// session 유효성 인증 검사
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") == null) { //로그인전
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
 		*/
-		
 		// view에 넘겨줄 달력정보(모델값)
 		Calendar firstDay = Calendar.getInstance(); // 오늘 날짜
 		
@@ -71,9 +72,9 @@ public class calendarController extends HttpServlet {
 		System.out.println(totalCell + "<-- totalCell");
 		
 		// memberId 호출
-		// Member memberOne = (Member)(request.getAttribute("member"));
-		// String memberId = memberOne.getMemberId();
-		String memberId = "user";
+		System.out.println(request.getAttribute("loginMember"));
+		Member memberOne = (Member)(request.getAttribute("loginMember"));
+		String memberId = memberOne.getMemberId();
 		
 		// 모델 호출 (DAO 타겟 월의 수입/지출 데이터)
 		List<Cashbook> list = new CashbookDao().selectCashbookListByMonth(memberId, targetYear, targetMonth+1);
