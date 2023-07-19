@@ -38,5 +38,4 @@ public class CountListener implements HttpSessionListener {
     	int currentCounter = (Integer)application.getAttribute("currentCounter"); // 형변환 Object -> integer
     	application.setAttribute("currentCounter", currentCounter-1); // 세션에 저장된 currentCounter를 1감소 시킨다.
     }
-	
 }

@@ -18,7 +18,7 @@ public class MemberDao {
 		String sql = "SELECT member_id memberId, member_pw memberPw, createdate, updatedate FROM member WHERE member_id = ?";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/cash", "root", "java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, id);
 			rs = stmt.executeQuery();
@@ -56,7 +56,7 @@ public class MemberDao {
 				+ " FROM member WHERE member_id = ? AND member_pw = PASSWORD(?)";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/cash", "root", "java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, paramMember.getMemberId());
 			stmt.setString(2, paramMember.getMemberPw() );
@@ -85,8 +85,8 @@ public class MemberDao {
 	}
 	
 	// 아이디 중복검사
-	public boolean memberIdCk(String id) {
-		boolean memberIdCk = false;
+	public int memberIdCk(String id) {
+		int memberIdCk = 0; // 기본값 0
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -96,12 +96,12 @@ public class MemberDao {
 		
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/cash", "root", "java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, id);
 			rs = stmt.executeQuery();
 			if(rs.next()) { // 중복 아이디가 있는 경우
-				memberIdCk = true;
+				memberIdCk = 1;
 			} 
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -130,7 +130,7 @@ public class MemberDao {
 		String sql = "INSERT INTO member(member_id, member_pw, createdate, updatedate) VALUES(?,PASSWORD(?),NOW(),NOW())";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/cash", "root", "java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, paramMember.getMemberId());
 			stmt.setString(2, paramMember.getMemberPw() );
@@ -163,7 +163,7 @@ public class MemberDao {
 		String sql = "DELETE FROM member WHERE member_id = ? AND member_pw = PASSWORD(?)";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/cash", "root", "java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, paramMember.getMemberId());
 			stmt.setString(2, paramMember.getMemberPw() );
@@ -196,7 +196,7 @@ public class MemberDao {
 		String sql = "UPDATE member SET member_pw = PASSWORD(?) WHERE member_id = ? AND member_pw = PASSWORD(?)";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3307/cash", "root", "java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, paramMember.getMemberPw() );
 			stmt.setString(2, paramMember.getMemberId() );

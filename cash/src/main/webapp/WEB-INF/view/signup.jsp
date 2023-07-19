@@ -12,6 +12,7 @@ function goBack() {
   window.history.back();
 }
 
+/*
 $(document).ready(function() {
 	// 시작시 id 입력폼에 포커스
 	$('#id').focus();
@@ -53,29 +54,56 @@ $(document).ready(function() {
         $('#signinForm').submit();
      });
 });
+*/
+
+
+$(document).ready(function(){
+	  $('#memberId').change(function(){ // 아이디 입력란에서 값 변경 시
+	      var memberId = $(this).val(); // 현재 입력된 값을 가져옴
+
+	      $.ajax({
+	          url: '${pageContext.request.contextPath}/SelectMemberId', //아이디 중복검사가 있는 서블릿 주소 
+	          data: { memberId : memberId }, // 서버로 보낼 데이터
+	          type: 'post',
+	          dataType:'json',
+	          
+	           success:function(data){
+	              if(data == 1){ 
+	                  $('#message').text('중복된 ID입니다.'); // 메시지 출력
+	                  $("#signupBtn").attr("disabled", true);   // 회원가입 버튼 비활성화 (선택 사항)
+	              } else {
+	                  $('#message').text('사용 가능한 ID입니다.');
+	                   $("#signupBtn").removeAttr("disabled");   // 회원가입 버튼 활성화 (선택 사항)
+	               }
+	            }
+	        });
+	     });
+	});
+
 
 </script>
 </head>
 <body>
 	<h1>회원가입</h1>
-	<form id="signinForm" method="post" action="${pageContext.request.contextPath}/addMember">
+	<form id="signupForm" method="post" action="${pageContext.request.contextPath}/addMember">
 		<table border="1">
 			<tr>
 				<td>아이디 입력하세요</td>
 				<td>
-					<input id="id" type="text" name="memberId" placeholder="4~20자"> 
-					<span id="idMsg" class="msg"></span>
+					<input id="memberId" type="text" name="memberId" placeholder="4~20자"> 
+					<span id="message"></span>
+					<!-- <span id="idMsg" class="msg"></span> -->
 				</td>
 			</tr>
 			<tr>
 				<td>비밀번호 입력하세요</td>
 				<td>
-					<input id="pw" type="password" name="memberPw" placeholder="4~20자">
-					<span id="pwMsg" class="msg"></span>
+					<input id="memberPw" type="password" name="memberPw" placeholder="4~20자">
+					<!-- <span id="pwMsg" class="msg"></span> -->
 				</td>
 			</tr>
 		</table>
-		<button id="signinBtn" type="submit">회원가입</button>
+		<button id="signupBtn" type="submit" disabled>회원가입</button>
 		<button onclick="goback()">뒤로</button>
 	</form>
 </body>

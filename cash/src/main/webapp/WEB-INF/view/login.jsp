@@ -8,6 +8,7 @@
 function goBack() {
   window.history.back();
 }
+
 </script>
 </head>
 <body>
@@ -17,7 +18,7 @@ function goBack() {
 		<table border="1">
 			<tr>
 				<td>memberId</td>
-				<td><input type="text" name="memberId"> </td>
+				<td><input type="text" name="memberId" id="memberId"></td>
 			</tr>
 			<tr>
 				<td>memberPw</td>
@@ -26,7 +27,7 @@ function goBack() {
 		</table>
 		<button type="submit">로그인</button>
 		<button onclick="goback()">뒤로</button>
-		<a href="${pageContext.request.contextPath}/addMember">회원가입</a>
+		<a href="${pageContext.request.contextPath}/addMember" id="signUpButton">회원가입</a>
 	</form>
 </body>
 </html>
