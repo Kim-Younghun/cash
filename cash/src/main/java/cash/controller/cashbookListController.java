@@ -18,14 +18,15 @@ import cash.vo.Cashbook;
 public class cashbookListController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		/*
 		// session 유효성 구현
-		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") == null) { //로그인전
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
+		*/
 		
+		HttpSession session = request.getSession();
 		String memberId = (String)session.getAttribute("loginMember");
 		
 		// cashbookListByTag.jsp로부터 정렬 반환값 저장

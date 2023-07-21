@@ -25,12 +25,13 @@ public class calendarController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/*
 		// session 유효성 인증 검사
-		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") == null) { //로그인전
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
 		*/
+		// 세션생성
+		HttpSession session = request.getSession();
 		// view에 넘겨줄 달력정보(모델값)
 		Calendar firstDay = Calendar.getInstance(); // 오늘 날짜
 		
@@ -73,6 +74,7 @@ public class calendarController extends HttpServlet {
 		
 		// memberId 호출
 		System.out.println(request.getAttribute("loginMember"));
+		
 		Member memberOne = (Member)(request.getAttribute("loginMember"));
 		String memberId = memberOne.getMemberId();
 		
