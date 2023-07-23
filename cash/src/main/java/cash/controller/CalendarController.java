@@ -15,23 +15,26 @@ import javax.servlet.http.HttpSession;
 
 import cash.model.CashbookDao;
 import cash.model.HashtagDao;
+import cash.service.CounterService;
 import cash.vo.Cashbook;
 import cash.vo.Member;
 
 @WebServlet("/calendar")
-public class calendarController extends HttpServlet {
+public class CalendarController extends HttpServlet {
+	
+	private CounterService counterService = null;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
+		
 		// session 유효성 인증 검사
+		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") == null) { //로그인전
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
-		*/
-		// 세션생성
-		HttpSession session = request.getSession();
+		
+		
 		// view에 넘겨줄 달력정보(모델값)
 		Calendar firstDay = Calendar.getInstance(); // 오늘 날짜
 		
@@ -75,7 +78,7 @@ public class calendarController extends HttpServlet {
 		// memberId 호출
 		System.out.println(request.getAttribute("loginMember"));
 		
-		Member memberOne = (Member)(request.getAttribute("loginMember"));
+		Member memberOne = (Member)(session.getAttribute("loginMember"));
 		String memberId = memberOne.getMemberId();
 		
 		// 모델 호출 (DAO 타겟 월의 수입/지출 데이터)
@@ -160,6 +163,15 @@ public class calendarController extends HttpServlet {
 		request.setAttribute("htList", htList);
 		
 		System.out.println("htList :" + htList);
+		
+		// 카운터를 request 객체에 넣기
+		counterService = new CounterService();
+		
+		int counter = counterService.getCounter();
+		int totalCounter = counterService.getCounterAll();
+		
+		request.setAttribute("counter", counter);
+		request.setAttribute("totalCounter", totalCounter);
 		
 		if(request.getAttribute("targetDay") == null || targetDay == 0) {
 		// 달력을 출력하는 뷰

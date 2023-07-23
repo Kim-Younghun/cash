@@ -16,7 +16,7 @@ import cash.model.MemberDao;
 import cash.vo.Member;
 
 @WebServlet("/addMember")
-public class addMemberController extends HttpServlet {
+public class AddMemberController extends HttpServlet {
 
 	// signin.jsp 회원가입폼 -> 아이디 중복검사시 doGet으로 오도록 구현
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

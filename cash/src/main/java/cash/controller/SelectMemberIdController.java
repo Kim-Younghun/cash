@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 
 import cash.model.MemberDao;
 
-@WebServlet("/SelectMemberId")
+@WebServlet("/selectMemberId")
 public class SelectMemberIdController extends HttpServlet {
 	
 	// aJax post에 반응

@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 <!-- jQuery -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+<!-- Add Bootstrap 5 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+<!-- Add Bootstrap 5 JS if needed -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 function goBack() {
   window.history.back();
@@ -62,7 +66,7 @@ $(document).ready(function(){
 	      var memberId = $(this).val(); // 현재 입력된 값을 가져옴
 
 	      $.ajax({
-	          url: '${pageContext.request.contextPath}/SelectMemberId', //아이디 중복검사가 있는 서블릿 주소 
+	          url: '${pageContext.request.contextPath}/selectMemberId', //아이디 중복검사가 있는 서블릿 주소 
 	          data: { memberId : memberId }, // 서버로 보낼 데이터
 	          type: 'post',
 	          dataType:'json',
@@ -82,29 +86,45 @@ $(document).ready(function(){
 
 
 </script>
+<style>
+        /* Custom styles */
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .signup-form {
+            max-width: 360px;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
-	<h1>회원가입</h1>
-	<form id="signupForm" method="post" action="${pageContext.request.contextPath}/addMember">
-		<table border="1">
-			<tr>
-				<td>아이디 입력하세요</td>
-				<td>
-					<input id="memberId" type="text" name="memberId" placeholder="4~20자"> 
-					<span id="message"></span>
-					<!-- <span id="idMsg" class="msg"></span> -->
-				</td>
-			</tr>
-			<tr>
-				<td>비밀번호 입력하세요</td>
-				<td>
-					<input id="memberPw" type="password" name="memberPw" placeholder="4~20자">
-					<!-- <span id="pwMsg" class="msg"></span> -->
-				</td>
-			</tr>
-		</table>
-		<button id="signupBtn" type="submit" disabled>회원가입</button>
-		<button onclick="goback()">뒤로</button>
-	</form>
+	<div class="signup-form">
+        <h1 class="text-center mb-4">회원가입</h1>
+        <form id="signupForm" method="post" action="${pageContext.request.contextPath}/addMember">
+            <div class="mb-3">
+                <label for="memberId" class="form-label">아이디 입력하세요</label>
+                <input id="memberId" type="text" class="form-control" name="memberId" placeholder="4~20자">
+                <span id="message"></span>
+            </div>
+            <div class="mb-3">
+                <label for="memberPw" class="form-label">비밀번호 입력하세요</label>
+                <input id="memberPw" type="password" class="form-control" name="memberPw" placeholder="4~20자">
+            </div>
+            <div class="d-grid gap-2">
+                <button id="signupBtn" type="submit" class="btn btn-primary" disabled>회원가입</button>
+                <button type="button" class="btn btn-secondary" onclick="goBack()">뒤로</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

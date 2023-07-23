@@ -1,7 +1,6 @@
 package cash.controller;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,52 +12,28 @@ import javax.servlet.http.HttpSession;
 
 import cash.model.CashbookDao;
 import cash.vo.Cashbook;
+import cash.vo.Member;
 
-@WebServlet("/cashbookListController")
-public class cashbookListController extends HttpServlet {
+@WebServlet("/cashbookListByTag")
+public class CashbookListController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
+		
 		// session 유효성 구현
+		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") == null) { //로그인전
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
-		*/
 		
-		HttpSession session = request.getSession();
-		String memberId = (String)session.getAttribute("loginMember");
+		Member memberOne = (Member)session.getAttribute("loginMember");
+		String memberId = memberOne.getMemberId();
 		
 		// cashbookListByTag.jsp로부터 정렬 반환값 저장
 		
 		String word = request.getParameter("word");
 		if (word == null) {
 			word = "";
-		}
-		
-		String searchWord = request.getParameter("searchWord");
-		if (searchWord == null) {
-			searchWord = "";
-		}
-		
-		String beginYear = request.getParameter("beginYear");
-		if (beginYear == null) {
-			beginYear = "";
-		}
-		
-		String endYear = request.getParameter("endYear");
-		if (endYear == null) {
-			endYear = "";
-		}
-		
-		String col = request.getParameter("col");
-		if (col == null) {
-			col = "";
-		}
-		
-		String ascDesc = request.getParameter("ascDesc");
-		if (ascDesc == null) {
-			ascDesc = "";
 		}
 		
 		// cashbookListByTag.jsp로부터 페이징 반환값 저장
@@ -76,12 +51,12 @@ public class cashbookListController extends HttpServlet {
 		
 		// 해시 태그별 가계리스트 조회
 		CashbookDao cashbookDao = new CashbookDao();
-		List<Cashbook> list = cashbookDao.selectCashbookListByTag(memberId, word, searchWord, beginYear, endYear, col, ascDesc, beginRow, rowPerPage);
+		List<Cashbook> list = cashbookDao.selectCashbookListByTag(memberId, word, beginRow, rowPerPage);
 		
-		request.setAttribute("list", list);
+		
 		
 		// 전체 행 수
-		int totalRow = cashbookDao.selectCashbookListCnt(memberId, word, searchWord, beginYear, endYear);
+		int totalRow = cashbookDao.selectCashbookListCnt(memberId, word);
 		int lastPage = totalRow / rowPerPage;
 		if (totalRow % rowPerPage != 0) {
 			lastPage++;
@@ -96,23 +71,15 @@ public class cashbookListController extends HttpServlet {
 			maxPage = lastPage;
 		}
 		
-		// 페이징시 넘겨줄 문자값
-		String reqString = "";
-		reqString += "&rowPerPage=" + rowPerPage +
-		    // 한글이 입력될 경우를 대비해서 인코딩
-		    "&searchWord=" + URLEncoder.encode(searchWord, "UTF-8") +
-		    "&memberId=" + memberId +
-		    "&word=" + word +
-		    "&beginYear=" + beginYear +
-		    "&endYear=" + endYear;
-		
 		// 뷰에 값넘기기 (request 속성)
-		request.setAttribute("reqString", reqString);
+		request.setAttribute("list", list);
+		request.setAttribute("word", word);
+		request.setAttribute("minPage", minPage);
+		request.setAttribute("maxPage", maxPage);
+		request.setAttribute("pagePerPage", pagePerPage);
+		request.setAttribute("lastPage", lastPage);
 		
 		request.getRequestDispatcher("/WEB-INF/view/cashbookListByTag.jsp").forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
 
 }

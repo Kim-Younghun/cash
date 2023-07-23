@@ -17,21 +17,19 @@ import cash.vo.Member;
 import cash.service.CounterService;
 
 @WebServlet("/cashbook")
-public class cashbookController extends HttpServlet {
+public class CashbookController extends HttpServlet {
 	
 	private CounterService counterService = null;
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
+		
 		// session 인증 검사 코드
+		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") == null) { //로그인전
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
-		*/
-		
-		HttpSession session = request.getSession();
 		
 		// 카운터를 request 객체에 넣기
 		counterService = new CounterService();
