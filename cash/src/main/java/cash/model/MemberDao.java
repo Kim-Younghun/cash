@@ -18,7 +18,7 @@ public class MemberDao {
 		String sql = "SELECT member_id memberId, member_pw memberPw, createdate, updatedate FROM member WHERE member_id = ?";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://52.78.47.161:3306/cash", "root", "java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, id);
 			rs = stmt.executeQuery();
@@ -56,7 +56,7 @@ public class MemberDao {
 				+ " FROM member WHERE member_id = ? AND member_pw = PASSWORD(?)";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://52.78.47.161:3306/cash", "root", "java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, paramMember.getMemberId());
 			stmt.setString(2, paramMember.getMemberPw() );
@@ -96,7 +96,7 @@ public class MemberDao {
 		
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://52.78.47.161:3306/cash", "root", "java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, id);
 			rs = stmt.executeQuery();
@@ -130,7 +130,7 @@ public class MemberDao {
 		String sql = "INSERT INTO member(member_id, member_pw, createdate, updatedate) VALUES(?,PASSWORD(?),NOW(),NOW())";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://52.78.47.161:3306/cash", "root", "java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, paramMember.getMemberId());
 			stmt.setString(2, paramMember.getMemberPw() );
@@ -163,7 +163,7 @@ public class MemberDao {
 		String sql = "DELETE FROM member WHERE member_id = ? AND member_pw = PASSWORD(?)";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://52.78.47.161:3306/cash", "root", "java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, paramMember.getMemberId());
 			stmt.setString(2, paramMember.getMemberPw() );
@@ -196,7 +196,7 @@ public class MemberDao {
 		String sql = "UPDATE member SET member_pw = PASSWORD(?) WHERE member_id = ? AND member_pw = PASSWORD(?)";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://52.78.47.161:3306/cash", "root", "java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, paramMember.getMemberPw() );
 			stmt.setString(2, paramMember.getMemberId() );

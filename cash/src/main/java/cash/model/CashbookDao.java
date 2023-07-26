@@ -24,7 +24,7 @@ public class CashbookDao {
 				+ " VALUES(?,?,?,?,?,NOW(),NOW())";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://52.78.47.161:3306/cash", "root", "java1234");
 			stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, cashbook.getMemberId() );
 			stmt.setString(2, cashbook.getCategory() );
@@ -73,7 +73,7 @@ public class CashbookDao {
 		
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://52.78.47.161:3306/cash", "root", "java1234");
 			stmt = conn.prepareStatement(sql);
 			
 			stmt.setString(1, memberId);
@@ -126,7 +126,7 @@ public class CashbookDao {
 		
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://52.78.47.161:3306/cash", "root", "java1234");
 			stmt = conn.prepareStatement(sql);
 			
 			stmt.setString(1, memberId);
@@ -169,7 +169,7 @@ public class CashbookDao {
 				+ " ORDER BY cashbook_date ASC";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://52.78.47.161:3306/cash", "root", "java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId );
 			stmt.setInt(2, targetYear );
@@ -218,7 +218,7 @@ public class CashbookDao {
 				+ " ORDER BY createdate ASC";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash", "root", "java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://52.78.47.161:3306/cash", "root", "java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId );
 			stmt.setString(2, targetYear+"-"+strM+"-"+strD );
