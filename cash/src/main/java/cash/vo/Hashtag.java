@@ -8,7 +8,6 @@ public class Hashtag {
 	
 	public Hashtag() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Hashtag(int cashbookNo, String word, String updatedate, String createdate) {
