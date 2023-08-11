@@ -19,13 +19,16 @@ public class CashbookListController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		/*
 		// session 유효성 구현
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") == null) { //로그인전
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
+		*/
 		
+		HttpSession session = request.getSession();
 		Member memberOne = (Member)session.getAttribute("loginMember");
 		String memberId = memberOne.getMemberId();
 		

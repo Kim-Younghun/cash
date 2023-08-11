@@ -24,12 +24,14 @@ public class CashbookController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		/*
 		// session 인증 검사 코드
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") == null) { //로그인전
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
+		*/
 		
 		// 카운터를 request 객체에 넣기
 		counterService = new CounterService();

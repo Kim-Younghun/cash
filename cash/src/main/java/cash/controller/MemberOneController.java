@@ -17,13 +17,16 @@ public class MemberOneController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		/*
 		// session 유효성 검사
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") == null) { // 로그인 전
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
+		*/
 		
+		HttpSession session = request.getSession();
 		Member loginMember = (Member)(session.getAttribute("loginMember"));
 		
 		// 모델 값 구하기(dao 메서드 호출)

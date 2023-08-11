@@ -17,12 +17,14 @@ public class RemoveMemberController extends HttpServlet {
 	// 비밀번호 입력(탈퇴) 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		/*
 		// session 유효성 검사
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") == null) { // 로그인 전
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
+		*/
 		
 		request.getRequestDispatcher("/WEB-INF/view/removeMember.jsp").forward(request, response);
 	}
@@ -30,14 +32,17 @@ public class RemoveMemberController extends HttpServlet {
 	// 탈퇴 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		/*
 		// session 유효성 검사
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") == null) { // 로그인 전
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
+		*/
 		
 		// 세션객체에서 id값 끄집어내기
+		HttpSession session = request.getSession();
 		Member loginMember = (Member)(session.getAttribute("loginMember"));
 		loginMember.getMemberId();
 		String memberPw = request.getParameter("memberPw");

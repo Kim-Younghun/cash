@@ -22,16 +22,16 @@ public class AddMemberController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("get 입력");
 		
-		
+		/*
 		// session 인증 검사 코드(로그인한 인원은 들어오지 못하도록 함)
 		HttpSession session = request.getSession();
 		System.out.println("session.getAttribute(\"loginMember\") :"+session.getAttribute("loginMember"));
 		
 		if(session.getAttribute("loginMember") != null) { // 로그인 후
-			response.sendRedirect(request.getContextPath()+"/login");
+			response.sendRedirect(request.getContextPath()+"/cashbook");
 			return;
 		}
-		
+		*/
 				
 		// signup.jsp 포워딩
 		request.getRequestDispatcher("/WEB-INF/view/signup.jsp").forward(request, response); 
@@ -43,12 +43,14 @@ public class AddMemberController extends HttpServlet {
 		
 		System.out.println("post 입력");
 		
+		/*
 		// session 인증 검사 코드(로그인한 인원은 들어오지 못하도록 함)
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") != null) { // 로그인 후
-			response.sendRedirect(request.getContextPath()+"/login");
+			response.sendRedirect(request.getContextPath()+"/cashbook");
 			return;
 		}
+		*/
 		
 		String memberId = request.getParameter("memberId");
 		String memberPw = request.getParameter("memberPw");
