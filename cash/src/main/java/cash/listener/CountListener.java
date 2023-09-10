@@ -21,6 +21,8 @@ public class CountListener implements HttpSessionListener {
     	int currentCounter = (Integer)application.getAttribute("currentCounter"); // 형변환 Object -> integer
     	application.setAttribute("currentCounter", currentCounter+1); // 세션에 저장된 currentCounter를 1증가 시킨다.
     	
+    	System.out.println(currentCounter + "세션이 생성된 메서드 실행 : 현재 접속자 수");
+    	
     	// 오늘 접속자 수 +1 -> DB
     	this.counterService = new CounterService();
     	int counter = counterService.getCounter(); // 오늘 카운트 수
@@ -37,5 +39,7 @@ public class CountListener implements HttpSessionListener {
     	ServletContext application = se.getSession().getServletContext(); 
     	int currentCounter = (Integer)application.getAttribute("currentCounter"); // 형변환 Object -> integer
     	application.setAttribute("currentCounter", currentCounter-1); // 세션에 저장된 currentCounter를 1감소 시킨다.
+    	
+    	System.out.println(currentCounter + "세션이 제거된 메서드 실행 : 현재 접속자 수");
     }
 }

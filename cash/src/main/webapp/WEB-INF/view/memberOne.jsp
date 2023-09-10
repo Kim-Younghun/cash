@@ -10,7 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 function goBack() {
-  window.history.back();
+	window.location.href = "${pageContext.request.contextPath}/cashbook";
 }
 </script>
 <style>
@@ -50,7 +50,7 @@ function goBack() {
         <div class="text-center">
 	        <a href="${pageContext.request.contextPath}/modifyMember" class="btn btn-primary">회원정보수정</a>
 	        <a href="${pageContext.request.contextPath}/removeMember" class="btn btn-danger">회원탈퇴</a>
-	        <button onclick="goBack()" class="btn btn-secondary">뒤로</button>
+	        <button type="button" onclick="goBack()" class="btn btn-secondary">뒤로</button>
         </div>
     </div>
 </body>

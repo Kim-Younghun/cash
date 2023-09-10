@@ -65,7 +65,6 @@ public class HashtagDao {
 	public int insertHashtag(Hashtag hashtag) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		ResultSet rs = null; // 입력후 생성된 키값 반환
 		int row = 0;
 		String sql = "INSERT INTO hashtag(cashbook_no, word, createdate, updatedate) "
 				+ " VALUES(?,?,NOW(),NOW())";

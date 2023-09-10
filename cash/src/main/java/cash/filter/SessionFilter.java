@@ -24,7 +24,7 @@ public class SessionFilter extends HttpFilter implements Filter {
 
 		String uri = httpRequest.getRequestURI();
 		
-		
+		/*
 		if(uri.contains("/login") || uri.contains("/addMember")) { // 로그인 된 상태이므로 캐시북 페이지로 리디렉션 하는 경우
 			
 			// session 인증 검사 코드
@@ -54,8 +54,8 @@ public class SessionFilter extends HttpFilter implements Filter {
 				return;
 			}
 		}
+		*/
 		
-		/*
 		if(uri.contains("/addMember")) { // 회원가입 페이지의 경우 세션 유효성 검사 처리
 			
 			// session 인증 검사 코드
@@ -146,32 +146,19 @@ public class SessionFilter extends HttpFilter implements Filter {
 			// session 인증 검사 코드
 			HttpSession session = httpRequest.getSession();
 			System.out.println("removeMember session 필터 실행 ");
+			System.out.println(session+"세션 값 확인");
 			if(session.getAttribute("loginMember") == null) { // 비로그인이면
 				System.out.println("비로그인 된 상태이므로 로그인 페이지로 리디렉션");
 				httpResponse.sendRedirect(httpRequest.getContextPath()+"/login");
 				return;
 			}
 		}
-		*/
+		
 		
 		request = httpRequest;
 		response = httpResponse;
 		
 		chain.doFilter(request, response);
-		
-		/*
-		 * HttpSession session = httpRequest.getSession(true); // 세션이 존재하지 않으면 새로운 세션을
-		 * 생성하고, 이미 세션이 존재하면 해당 세션을 반환
-		 * System.out.println("Filter - 세션이 존재하는지 확인"+session.getAttribute("loginMember"
-		 * ));
-		 * 
-		 * if(session == null || session.getAttribute("loginMember") == null) {
-		 * System.out.println("Filter - 세션 유효성 검사 완료 - 로그인 페이지로 이동");
-		 * httpResponse.sendRedirect(httpRequest.getContextPath()+"/login"); } else { //
-		 * 그 외의 경우 필터 진행 chain.doFilter(request, response); }
-		 * 
-		 * chain.doFilter(request, response);
-		 */
 		
 	}
 }

@@ -88,7 +88,7 @@ function goBack() {
         </c:forEach>
 
         <c:if test="${maxPage != lastPage}">
-                <a  href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${minPage + pagePerPage}">다음</a>
+                <a  href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${maxPage + pagePerPage}">다음</a>
         </c:if>
         </div>
 </body>

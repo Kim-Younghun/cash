@@ -11,7 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 function goBack() {
-  window.history.back();
+  window.location.href = "${pageContext.request.contextPath}/memberOne";
 }
 </script>
 <style>
@@ -44,7 +44,7 @@ function goBack() {
             </table>
             <div class="d-grid gap-2 mt-3">
                 <button type="submit" class="btn btn-danger">탈퇴</button>
-                <button onclick="goBack()" class="btn btn-secondary">뒤로</button>
+                <button type="button" onclick="goBack()" class="btn btn-secondary">뒤로</button>
             </div>
         </form>
     </div>

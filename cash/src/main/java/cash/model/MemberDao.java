@@ -126,7 +126,6 @@ public class MemberDao {
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		ResultSet rs = null;
 		String sql = "INSERT INTO member(member_id, member_pw, createdate, updatedate) VALUES(?,PASSWORD(?),NOW(),NOW())";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
@@ -141,7 +140,6 @@ public class MemberDao {
 			e1.printStackTrace();
 		} finally {
 			try {
-				rs.close();
 				stmt.close();
 				conn.close();
 			} catch (Exception e2) {
@@ -159,7 +157,6 @@ public class MemberDao {
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		ResultSet rs = null;
 		String sql = "DELETE FROM member WHERE member_id = ? AND member_pw = PASSWORD(?)";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
@@ -174,7 +171,6 @@ public class MemberDao {
 			e1.printStackTrace();
 		} finally {
 			try {
-				rs.close();
 				stmt.close();
 				conn.close();
 			} catch (Exception e2) {
@@ -192,7 +188,6 @@ public class MemberDao {
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		ResultSet rs = null;
 		String sql = "UPDATE member SET member_pw = PASSWORD(?) WHERE member_id = ? AND member_pw = PASSWORD(?)";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
@@ -208,7 +203,6 @@ public class MemberDao {
 			e1.printStackTrace();
 		} finally {
 			try {
-				rs.close();
 				stmt.close();
 				conn.close();
 			} catch (Exception e2) {

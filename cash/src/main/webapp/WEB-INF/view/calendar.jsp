@@ -98,6 +98,11 @@
         color: red;
     }
 </style>
+<script>
+function goBack() {
+	window.location.href = "${pageContext.request.contextPath}/cashbook";
+}
+</script>
 </head>
 <body>
 	<!-- 변수값 or 반환값 : EL사용 $ {표현식} -->
@@ -126,6 +131,8 @@
 			</div>
 		</div>
 		
+		<!-- 뒤로가기 버튼 -->
+		<a onclick="goBack()" class="btn btn-primary">가계부</a>
 		
 		<table class="calendar-table">
 			<tr>

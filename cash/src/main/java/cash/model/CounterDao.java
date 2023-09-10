@@ -12,7 +12,7 @@ public class CounterDao {
 		try {
 			String sql = "INSERT INTO counter VALUES(CURDATE(), 1)";
 			stmt = conn.prepareStatement(sql);
-			int row = stmt.executeUpdate();
+			stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 			/*
@@ -37,7 +37,7 @@ public class CounterDao {
 			String sql = "UPDATE counter SET counter_num = counter_num+1"
 					+ " WHERE counter_date = CURDATE()";
 			stmt = conn.prepareStatement(sql);
-			int row = stmt.executeUpdate();
+			stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception(); // 강제로 예외를 발생

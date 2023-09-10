@@ -16,14 +16,6 @@ import cash.vo.Member;
 public class LogoutController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		/*
-		// session 인증 검사 코드
-		HttpSession session = request.getSession();
-		if(session.getAttribute("loginMember") == null) { //로그인전
-			response.sendRedirect(request.getContextPath()+"/login");
-			return;
-		}
-		*/
 		
 		HttpSession session = request.getSession();
 		System.out.println("로그아웃 성공");
